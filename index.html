@@ -1,484 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RailBook - Train Ticket Booking</title>
+
+    <title>FoodExpress - Online Food Ordering</title>
+
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">🚆 RailBook</div>
-        <div class="subtitle">Smart Train Ticket Booking</div>
-    </header>
+<header>
 
-    <main>
+    <div class="logo">🍽️ FoodExpress</div>
 
-        <!-- HOME -->
-        <section class="screen active" id="home">
+    <div class="tagline">
+        Delicious Food • Fast Delivery
+    </div>
 
-            <div class="welcome">
+</header>
 
-                <div class="big-train">🚆</div>
 
-                <h1>RailBook</h1>
+<main>
 
-                <p>
-                    Book your train tickets quickly and easily.
-                </p>
+    <!-- HOME PAGE -->
 
-                <button onclick="go('search')">
-                Book a Train →
+    <section class="screen active" id="home">
+
+        <div class="welcome">
+
+            <div class="food-icon">
+                🍕
+            </div>
+
+            <h1>FoodExpress</h1>
+
+            <p>
+                Order your favourite food from the comfort of your home.
+            </p>
+
+            <button onclick="go('menu')">
+                Order Food →
             </button>
 
+        </div>
+
+    </section>
+
+
+    <!-- MENU PAGE -->
+
+    <section class="screen" id="menu">
+
+        <div class="box">
+
+            <span class="step">
+                STEP 1
+            </span>
+
+            <h2>
+                🍴 Our Menu
+            </h2>
+
+            <p>
+                Select your favourite food.
+            </p>
+
+
+            <div class="food-grid">
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍕
+                    </div>
+
+                    <h3>
+                        Margherita Pizza
+                    </h3>
+
+                    <p>
+                        Cheese, tomato and fresh herbs
+                    </p>
+
+                    <h3>
+                        ₹249
+                    </h3>
+
+                    <button onclick="addFood('Margherita Pizza',249)">
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍔
+                    </div>
+
+                    <h3>
+                        Cheese Burger
+                    </h3>
+
+                    <p>
+                        Crispy patty with cheese
+                    </p>
+
+                    <h3>
+                        ₹179
+                    </h3>
+
+                    <button onclick="addFood('Cheese Burger',179)">
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍝
+                    </div>
+
+                    <h3>
+                        Italian Pasta
+                    </h3>
+
+                    <p>
+                        Creamy pasta with vegetables
+                    </p>
+
+                    <h3>
+                        ₹199
+                    </h3>
+
+                    <button onclick="addFood('Italian Pasta',199)">
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍗
+                    </div>
+
+                    <h3>
+                        Chicken Biryani
+                    </h3>
+
+                    <p>
+                        Aromatic basmati rice and chicken
+                    </p>
+
+                    <h3>
+                        ₹299
+                    </h3>
+
+                    <button onclick="addFood('Chicken Biryani',299)">
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🌯
+                    </div>
+
+                    <h3>
+                        Veg Wrap
+                    </h3>
+
+                    <p>
+                        Fresh vegetables with tasty sauce
+                    </p>
+
+                    <h3>
+                        ₹149
+                    </h3>
+
+                    <button onclick="addFood('Veg Wrap',149)">
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍨
+                    </div>
+
+                    <h3>
+                        Ice Cream
+                    </h3>
+
+                    <p>
+                        Delicious vanilla ice cream
+                    </p>
+
+                    <h3>
+                        ₹99
+                    </h3>
+
+                    <button onclick="addFood('Ice Cream',99)">
+                        Add +
+                    </button>
+
+                </div>
+
             </div>
 
-        </section>
 
+            <div class="cart-box">
 
-        <!-- SEARCH -->
-        <section class="screen" id="search">
+                <h3>
+                    🛒 Your Cart
+                </h3>
 
-            <div class="box">
-
-                <span class="step">STEP 1</span>
-
-                <h2>🔎 Search Trains</h2>
-
-                <div class="form">
-
-                    <div>
-                        <label>From</label>
-
-                        <select id="from">
-                        <option value="">Select Station</option>
-                        <option>Hyderabad</option>
-                        <option>Chennai</option>
-                        <option>Delhi</option>
-                        <option>Mumbai</option>
-                        <option>Bangalore</option>
-                        <option>Pune</option>
-                    </select>
-                    </div>
-
-
-                    <div>
-                        <label>To</label>
-
-                        <select id="to">
-                        <option value="">Select Station</option>
-                        <option>Hyderabad</option>
-                        <option>Chennai</option>
-                        <option>Delhi</option>
-                        <option>Mumbai</option>
-                        <option>Bangalore</option>
-                        <option>Pune</option>
-                    </select>
-                    </div>
-
-
-                    <div>
-                        <label>Journey Date</label>
-
-                        <input type="date" id="journeyDate">
-                    </div>
-
-
-                    <div>
-                        <label>Passengers</label>
-
-                        <select id="passengers">
-                        <option value="1">1 Passenger</option>
-                        <option value="2">2 Passengers</option>
-                        <option value="3">3 Passengers</option>
-                        <option value="4">4 Passengers</option>
-                    </select>
-                    </div>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button class="gray" onclick="go('home')">
-                    ← Back
-                </button>
-
-                    <button onclick="searchTrain()">
-                    Search Trains →
-                </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TRAIN LIST -->
-        <section class="screen" id="trains">
-
-            <div class="box">
-
-                <span class="step">STEP 2</span>
-
-                <h2>🚆 Available Trains</h2>
-
-                <div id="trainList"></div>
-
-                <button class="gray" onclick="go('search')">
-                ← Back
-            </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- PASSENGER -->
-        <section class="screen" id="passenger">
-
-            <div class="box">
-
-                <span class="step">STEP 3</span>
-
-                <h2>👤 Passenger Details</h2>
-
-                <div class="form">
-
-                    <div>
-                        <label>Full Name</label>
-                        <input id="fullName" type="text" placeholder="Enter name">
-                    </div>
-
-                    <div>
-                        <label>Email</label>
-                        <input id="email" type="email" placeholder="Enter email">
-                    </div>
-
-                    <div>
-                        <label>Phone</label>
-                        <input id="phone" type="tel" placeholder="10 digit number">
-                    </div>
-
-                    <div>
-                        <label>Age</label>
-                        <input id="age" type="number" placeholder="Enter age">
-                    </div>
-
-                </div>
-
-
-                <div class="actions">
-
-                    <button class="gray" onclick="go('trains')">
-                    ← Back
-                </button>
-
-                    <button onclick="passengerDetails()">
-                    Continue →
-                </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- BERTH -->
-        <section class="screen" id="berth">
-
-            <div class="box">
-
-                <span class="step">STEP 4</span>
-
-                <h2>💺 Select Berth</h2>
-
-                <p>Select your preferred berth.</p>
-
-                <div class="legend">
-                    <span>🟩 Available</span>
-                    <span>🟥 Selected</span>
-                    <span>⬜ Booked</span>
-                </div>
-
-                <div class="seat-area" id="seatArea">
+                <div id="cart">
+                    No items added yet.
                 </div>
 
                 <h3>
-                    Selected:
-                    <span id="selectedSeat">None</span>
+                    Total: ₹<span id="total">0</span>
                 </h3>
 
+            </div>
+
+
+            <div class="actions">
+
+                <button class="gray"
+                        onclick="go('home')">
+                    ← Back
+                </button>
+
+                <button onclick="cartNext()">
+                    Continue →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CUSTOMER DETAILS -->
+
+    <section class="screen" id="customer">
+
+        <div class="box">
+
+            <span class="step">
+                STEP 2
+            </span>
+
+            <h2>
+                👤 Customer Details
+            </h2>
+
+            <div class="form">
+
+                <div>
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="10 digit number">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter email">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Number of Persons
+                    </label>
+
+                    <select id="persons">
+
+                        <option value="1">
+                            1 Person
+                        </option>
+
+                        <option value="2">
+                            2 Persons
+                        </option>
+
+                        <option value="3">
+                            3 Persons
+                        </option>
+
+                        <option value="4">
+                            4 Persons
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button class="gray"
+                        onclick="go('menu')">
+                    ← Back
+                </button>
+
+                <button onclick="customerNext()">
+                    Continue →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DELIVERY -->
+
+    <section class="screen" id="delivery">
+
+        <div class="box">
+
+            <span class="step">
+                STEP 3
+            </span>
+
+            <h2>
+                📍 Delivery Details
+            </h2>
+
+            <div class="form">
+
+                <div>
+
+                    <label>
+                        House / Flat Number
+                    </label>
+
+                    <input
+                        id="house"
+                        type="text"
+                        placeholder="Enter house number">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Street / Area
+                    </label>
+
+                    <input
+                        id="area"
+                        type="text"
+                        placeholder="Enter area">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        City
+                    </label>
+
+                    <input
+                        id="city"
+                        type="text"
+                        placeholder="Enter city">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Pincode
+                    </label>
+
+                    <input
+                        id="pincode"
+                        type="text"
+                        placeholder="6 digit pincode">
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button class="gray"
+                        onclick="go('customer')">
+                    ← Back
+                </button>
+
+                <button onclick="deliveryNext()">
+                    Continue →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAYMENT -->
+
+    <section class="screen" id="payment">
+
+        <div class="box">
+
+            <span class="step">
+                STEP 4
+            </span>
+
+            <h2>
+                💳 Payment
+            </h2>
+
+
+            <div class="summary">
+
+                <h3>
+                    Order Summary
+                </h3>
+
+                <div id="paymentItems"></div>
+
+                <hr>
+
                 <h2>
-                    Fare: ₹<span id="fare">0</span>
+                    Total: ₹<span id="paymentTotal">
+                    </span>
                 </h2>
 
-
-                <div class="actions">
-
-                    <button class="gray" onclick="go('passenger')">
-                    ← Back
-                </button>
-
-                    <button onclick="berthNext()">
-                    Continue →
-                </button>
-
-                </div>
-
             </div>
 
-        </section>
 
+            <label>
+                Select Payment Method
+            </label>
 
-        <!-- CAMERA -->
-        <section class="screen" id="face">
-
-            <div class="box center">
-
-                <span class="step">STEP 5</span>
-
-                <h2>📷 Face Verification</h2>
-
-                <p>
-                    Use the camera to capture a passenger photo.
-                </p>
-
-                <video id="video" autoplay playsinline>
-            </video>
-
-                <canvas id="canvas"></canvas>
-
-                <img id="captured" alt="Captured photo">
-
-                <div class="camera-buttons">
-
-                    <button onclick="startCamera()">
-                    Start Camera
-                </button>
-
-                    <button onclick="capturePhoto()">
-                    Capture
-                </button>
-
-                    <button onclick="verifyPhoto()">
-                    Verify
-                </button>
-
-                </div>
-
-                <p id="cameraMessage">
-                    Camera not started.
-                </p>
-
-
-                <div class="actions">
-
-                    <button class="gray" onclick="stopCamera();go('berth')">
-                    ← Back
-                </button>
-
-                    <button id="faceContinue" class="hidden" onclick="faceNext()">
-                    Continue →
-                </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PAYMENT -->
-        <section class="screen" id="payment">
-
-            <div class="box">
-
-                <span class="step">STEP 6</span>
-
-                <h2>💳 Payment</h2>
-
-                <div class="summary">
-
-                    <p>
-                        Train:
-                        <b id="payTrain"></b>
-                    </p>
-
-                    <p>
-                        Route:
-                        <b id="payRoute"></b>
-                    </p>
-
-                    <p>
-                        Passenger:
-                        <b id="payPassenger"></b>
-                    </p>
-
-                    <p>
-                        Berth:
-                        <b id="paySeat"></b>
-                    </p>
-
-                    <hr>
-
-                    <h2>
-                        Total: ₹<span id="payFare"></span>
-                    </h2>
-
-                </div>
-
-
-                <label>Payment Method</label>
-
-                <select id="paymentMethod">
+            <select id="paymentMethod">
 
                 <option value="">
                     Select Payment Method
                 </option>
 
-                <option>UPI</option>
-                <option>Debit Card</option>
-                <option>Credit Card</option>
-                <option>Net Banking</option>
+                <option>
+                    UPI
+                </option>
+
+                <option>
+                    Debit Card
+                </option>
+
+                <option>
+                    Credit Card
+                </option>
+
+                <option>
+                    Cash on Delivery
+                </option>
 
             </select>
 
 
-                <div class="actions">
+            <div class="actions">
 
-                    <button class="gray" onclick="go('face')">
+                <button class="gray"
+                        onclick="go('delivery')">
                     ← Back
                 </button>
 
-                    <button onclick="payNow()">
-                    Pay Now →
+                <button onclick="placeOrder()">
+                    Place Order →
                 </button>
 
-                </div>
-
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- TICKET -->
-        <section class="screen" id="ticket">
+    <!-- ORDER CONFIRMATION -->
 
-            <div class="box ticket-page">
+    <section class="screen" id="confirmation">
 
-                <div class="success">✓</div>
+        <div class="box confirmation">
 
-                <h2>Booking Confirmed!</h2>
+            <div class="success">
+                ✓
+            </div>
 
-                <p>Your train ticket has been booked successfully.</p>
+            <h1>
+                Order Confirmed!
+            </h1>
+
+            <p>
+                Your delicious food is being prepared.
+            </p>
 
 
-                <div class="ticket-card">
+            <div class="order-card">
 
-                    <div class="ticket-header">
+                <div class="order-header">
 
-                        <div>
-                            <h2>🚆 RailBook</h2>
-                            <p>TRAIN E-TICKET</p>
-                        </div>
+                    <div>
+                        <h2>
+                            🍽️ FoodExpress
+                        </h2>
 
-                        <div>
-                            <small>PNR</small>
-                            <h3 id="pnr"></h3>
-                        </div>
-
+                        <p>
+                            ORDER RECEIPT
+                        </p>
                     </div>
 
 
-                    <div class="route">
+                    <div>
 
-                        <div>
-                            <small>FROM</small>
-                            <h2 id="ticketFrom"></h2>
-                        </div>
+                        <small>
+                            ORDER ID
+                        </small>
 
-                        <div class="train-icon">
-                            🚆
-                        </div>
+                        <h3 id="orderId">
+                        </h3>
 
-                        <div>
-                            <small>TO</small>
-                            <h2 id="ticketTo"></h2>
-                        </div>
-
-                    </div>
-
-
-                    <div class="ticket-details">
-
-                        <div>
-                            <small>PASSENGER</small>
-                            <b id="ticketPassenger"></b>
-                        </div>
-
-                        <div>
-                            <small>DATE</small>
-                            <b id="ticketDate"></b>
-                        </div>
-
-                        <div>
-                            <small>TRAIN</small>
-                            <b id="ticketTrain"></b>
-                        </div>
-
-                        <div>
-                            <small>BERTH</small>
-                            <b id="ticketSeat"></b>
-                        </div>
-
-                        <div>
-                            <small>CLASS</small>
-                            <b>AC COACH</b>
-                        </div>
-
-                        <div>
-                            <small>AMOUNT</small>
-                            <b>₹<span id="ticketFare"></span></b>
-                        </div>
-
-                    </div>
-
-
-                    <div class="ticket-footer">
-                        Have a safe journey! 🚆
                     </div>
 
                 </div>
 
 
-                <button onclick="window.print()">
-                🖨 Print Ticket
-            </button>
+                <div class="order-details">
 
-                <button class="gray" onclick="location.reload()">
-                Book Another Train
-            </button>
+                    <div>
+
+                        <small>
+                            CUSTOMER
+                        </small>
+
+                        <b id="orderName">
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            PHONE
+                        </small>
+
+                        <b id="orderPhone">
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            ITEMS
+                        </small>
+
+                        <b id="orderItems">
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            DELIVERY
+                        </small>
+
+                        <b id="orderAddress">
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            PAYMENT
+                        </small>
+
+                        <b id="orderPayment">
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            TOTAL
+                        </small>
+
+                        <b>
+                            ₹<span id="orderTotal">
+                            </span>
+                        </b>
+
+                    </div>
+
+                </div>
+
+
+                <div class="order-footer">
+
+                    🍕 Thank you for ordering with FoodExpress!
+
+                </div>
 
             </div>
 
-        </section>
 
-    </main>
-
-
-    <footer>
-        © 2026 RailBook | Smart Train Ticket Booking
-    </footer>
+            <button onclick="window.print()">
+                🖨 Print Receipt
+            </button>
 
 
-    <script src="script.js"></script>
+            <button class="gray"
+                    onclick="location.reload()">
+                Order Again
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 FoodExpress |
+    Online Food Ordering System
+
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
-
 </html>

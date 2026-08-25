@@ -6,7 +6,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #eef7f2;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8ed,
+            #fff1e8
+        );
+
     color: #222;
 }
 
@@ -15,31 +22,43 @@ body {
 
 header {
     height: 70px;
-    background: #123d2a;
+
+    background: #9b3d18;
+
     color: white;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding: 0 8%;
 }
 
 .logo {
     font-size: 25px;
+
     font-weight: bold;
 }
 
-.subtitle {
-    color: #c8e8d5;
+.tagline {
+    color: #ffe0cf;
 }
 
 
-/* SCREENS */
+/* SCREEN */
 
 .screen {
     display: none;
-    min-height: calc(100vh - 120px);
+
+    min-height:
+        calc(100vh - 120px);
+
     padding: 40px 20px;
+
     align-items: center;
+
     justify-content: center;
 }
 
@@ -54,42 +73,56 @@ header {
     text-align: center;
 }
 
-.big-train {
+.food-icon {
     font-size: 90px;
+
     margin-bottom: 20px;
 }
 
 .welcome h1 {
     font-size: 50px;
-    color: #123d2a;
+
+    color: #9b3d18;
 }
 
 .welcome p {
-    margin: 15px 0 30px;
-    color: #666;
+    color: #777;
+
     font-size: 19px;
+
+    margin: 15px 0 30px;
 }
 
 
 /* BOX */
 
 .box {
-    width: 900px;
+    width: 950px;
+
     max-width: 95%;
+
     background: white;
+
     padding: 40px;
+
     border-radius: 18px;
-    box-shadow: 0 10px 30px #00000015;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.12);
 }
 
 .box h2 {
-    color: #123d2a;
+    color: #9b3d18;
+
     margin: 10px 0;
 }
 
 .step {
-    color: #16834d;
+    color: #d45b27;
+
     font-size: 13px;
+
     font-weight: bold;
 }
 
@@ -98,49 +131,70 @@ header {
 
 .form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap: 20px;
+
     margin-top: 25px;
 }
 
 label {
     display: block;
-    margin-bottom: 7px;
+
     font-weight: bold;
+
+    margin-bottom: 7px;
 }
 
 input,
 select {
     width: 100%;
+
     padding: 14px;
-    border: 1px solid #ccd5d0;
+
+    border: 1px solid #ddd;
+
     border-radius: 8px;
+
     font-size: 15px;
+
+    background: white;
 }
 
 input:focus,
 select:focus {
     outline: none;
-    border-color: #16834d;
+
+    border-color: #d45b27;
 }
 
 
 /* BUTTON */
 
 button {
-    border: none;
-    background: #16834d;
+    background: #d45b27;
+
     color: white;
-    padding: 14px 24px;
+
+    border: none;
+
     border-radius: 8px;
-    cursor: pointer;
+
+    padding: 14px 24px;
+
     font-size: 15px;
+
     font-weight: bold;
+
+    cursor: pointer;
+
     margin: 5px;
 }
 
 button:hover {
-    background: #0d6339;
+    background: #b4471b;
 }
 
 .gray {
@@ -156,225 +210,226 @@ button:hover {
 
 .actions {
     display: flex;
+
     justify-content: space-between;
+
     margin-top: 30px;
 }
 
 
-/* TRAIN */
+/* FOOD */
 
-.train-card {
-    border: 1px solid #d8e1dc;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
-
-.train-card:hover {
-    border-color: #16834d;
-}
-
-.train-name {
-    color: #123d2a;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.train-time {
-    margin-top: 8px;
-    color: #777;
-}
-
-.price {
-    color: #16834d;
-    font-size: 21px;
-    font-weight: bold;
-}
-
-
-/* SEATS */
-
-.legend {
-    display: flex;
-    gap: 25px;
-    margin: 25px 0;
-    justify-content: center;
-}
-
-.seat-area {
+.food-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-    max-width: 600px;
-    margin: auto;
-    padding: 25px;
-    background: #f1f7f4;
-    border-radius: 15px;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-top: 25px;
 }
 
-.seat {
-    padding: 14px 5px;
-    background: #bdeacb;
-    color: #126238;
+.food-card {
+    border: 1px solid #eee;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
     text-align: center;
-    border-radius: 7px;
-    cursor: pointer;
-    font-weight: bold;
+
+    transition: 0.2s;
 }
 
-.seat:hover {
-    background: #8ed9a5;
+.food-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,0.1);
 }
 
-.seat.selected {
-    background: #e74c3c;
-    color: white;
-}
+.food-image {
+    font-size: 55px;
 
-.seat.booked {
-    background: #ccc;
-    color: #777;
-    cursor: not-allowed;
-}
+    background: #fff5e9;
 
+    padding: 15px;
 
-/* CAMERA */
-
-.center {
-    text-align: center;
-}
-
-#video,
-#captured {
-    width: 500px;
-    max-width: 100%;
-    margin: 20px auto;
     border-radius: 12px;
-    background: black;
+
+    margin-bottom: 12px;
 }
 
-#captured {
-    display: none;
+.food-card h3 {
+    margin: 8px 0;
+
+    color: #9b3d18;
 }
 
-#canvas {
-    display: none;
+.food-card p {
+    color: #777;
+
+    font-size: 14px;
+
+    min-height: 35px;
 }
 
-.camera-buttons {
+
+/* CART */
+
+.cart-box {
+    margin-top: 30px;
+
+    background: #fff7ed;
+
+    padding: 20px;
+
+    border-radius: 12px;
+}
+
+.cart-item {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #eee;
 }
 
-.hidden {
-    display: none !important;
+.cart-item button {
+    padding: 5px 10px;
+
+    margin: 0;
 }
 
 
-/* PAYMENT */
+/* SUMMARY */
 
 .summary {
-    background: #f1f7f4;
+    background: #fff7ed;
+
     padding: 25px;
+
     border-radius: 12px;
+
     margin: 25px 0;
 }
 
-.summary p {
+.summary-item {
+    display: flex;
+
+    justify-content: space-between;
+
     padding: 8px 0;
 }
 
 
-/* TICKET */
+/* CONFIRMATION */
 
-.ticket-page {
+.confirmation {
     text-align: center;
 }
 
 .success {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+
+    height: 65px;
+
     margin: auto;
+
     border-radius: 50%;
-    background: #0b9d55;
+
+    background: #159447;
+
     color: white;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
-    font-size: 30px;
+
+    font-size: 35px;
 }
 
-.ticket-card {
+
+/* ORDER */
+
+.order-card {
     max-width: 750px;
+
     margin: 30px auto;
-    text-align: left;
-    border: 2px dashed #123d2a;
+
+    border: 2px dashed #9b3d18;
+
     border-radius: 15px;
+
     overflow: hidden;
+
+    text-align: left;
 }
 
-.ticket-header {
-    background: #123d2a;
+.order-header {
+    background: #9b3d18;
+
     color: white;
+
     padding: 25px;
+
     display: flex;
+
     justify-content: space-between;
 }
 
-.ticket-header h2 {
+.order-header h2 {
     color: white;
 }
 
-.route {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    padding: 30px;
-    background: #f1f7f4;
-}
-
-.train-icon {
-    font-size: 30px;
-}
-
-.route small,
-.ticket-details small {
-    display: block;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.ticket-details {
+.order-details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 25px;
+
     padding: 30px;
 }
 
-.ticket-details div {
+.order-details div {
     display: flex;
+
     flex-direction: column;
+
+    gap: 6px;
 }
 
-.ticket-footer {
+.order-details small {
+    color: #888;
+}
+
+.order-footer {
     text-align: center;
+
     padding: 15px;
-    background: #eef3f0;
+
+    background: #fff5e9;
 }
 
 
 /* FOOTER */
 
 footer {
-    background: #123d2a;
+    background: #9b3d18;
+
     color: white;
+
     text-align: center;
+
     padding: 25px;
 }
 
@@ -382,28 +437,32 @@ footer {
 /* MOBILE */
 
 @media(max-width:700px) {
+
     header {
         padding: 0 20px;
     }
-    header .subtitle {
+
+    header .tagline {
         display: none;
     }
+
     .form {
         grid-template-columns: 1fr;
     }
-    .train-card {
-        flex-direction: column;
-        align-items: flex-start;
+
+    .food-grid {
+        grid-template-columns: 1fr;
     }
-    .seat-area {
-        grid-template-columns: repeat(3, 1fr);
+
+    .order-details {
+        grid-template-columns:
+            1fr 1fr;
     }
-    .ticket-details {
-        grid-template-columns: 1fr 1fr;
-    }
+
     .actions {
         flex-direction: column;
     }
+
     .actions button {
         width: 100%;
     }
@@ -413,18 +472,22 @@ footer {
 /* PRINT */
 
 @media print {
+
     header,
     footer,
     button,
     .success {
         display: none !important;
     }
+
     .screen {
         display: none !important;
     }
-    #ticket {
+
+    #confirmation {
         display: flex !important;
     }
+
     .box {
         box-shadow: none;
     }

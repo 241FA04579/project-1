@@ -1,86 +1,6 @@
-let selectedTrain = null;
-let selectedSeat = null;
-let totalFare = 0;
-let cameraStream = null;
+let cart = [];
 
-
-/* TRAIN DATA */
-
-const trainData = [
-
-    {
-        name: "Vande Bharat Express",
-        number: "VB101",
-        from: "Hyderabad",
-        to: "Chennai",
-        time: "06:00 AM",
-        price: 1850
-    },
-
-    {
-        name: "Godavari Express",
-        number: "GE202",
-        from: "Hyderabad",
-        to: "Delhi",
-        time: "08:30 AM",
-        price: 1450
-    },
-
-    {
-        name: "Charminar Express",
-        number: "CE303",
-        from: "Hyderabad",
-        to: "Mumbai",
-        time: "10:00 AM",
-        price: 1250
-    },
-
-    {
-        name: "Deccan Express",
-        number: "DE404",
-        from: "Mumbai",
-        to: "Pune",
-        time: "07:30 AM",
-        price: 650
-    },
-
-    {
-        name: "Coromandel Express",
-        number: "CO505",
-        from: "Chennai",
-        to: "Delhi",
-        time: "05:00 PM",
-        price: 1650
-    },
-
-    {
-        name: "Karnataka Express",
-        number: "KE606",
-        from: "Delhi",
-        to: "Bangalore",
-        time: "09:00 PM",
-        price: 1800
-    },
-
-    {
-        name: "Chennai Express",
-        number: "CH707",
-        from: "Chennai",
-        to: "Bangalore",
-        time: "07:00 AM",
-        price: 700
-    },
-
-    {
-        name: "Pune Superfast",
-        number: "PS808",
-        from: "Pune",
-        to: "Mumbai",
-        time: "06:45 AM",
-        price: 550
-    }
-
-];
+let total = 0;
 
 
 /* PAGE NAVIGATION */
@@ -105,146 +25,122 @@ function go(page) {
 }
 
 
-/* SET DATE */
+/* ADD FOOD */
 
-document.addEventListener("DOMContentLoaded", function() {
+function addFood(name, price) {
 
-    const date =
-        document.getElementById("journeyDate");
+    let existing =
+        cart.find(function(item) {
 
-    if (date) {
-
-        date.min =
-            new Date()
-            .toISOString()
-            .split("T")[0];
-
-    }
-
-});
-
-
-/* SEARCH TRAIN */
-
-function searchTrain() {
-
-    const from =
-        document.getElementById("from").value;
-
-    const to =
-        document.getElementById("to").value;
-
-    const date =
-        document.getElementById("journeyDate").value;
-
-
-    if (!from || !to || !date) {
-
-        alert(
-            "Please fill all search details."
-        );
-
-        return;
-    }
-
-
-    if (from === to) {
-
-        alert(
-            "From and To stations cannot be same."
-        );
-
-        return;
-    }
-
-
-    const results =
-        trainData.filter(function(train) {
-
-            return (
-                train.from === from &&
-                train.to === to
-            );
+            return item.name === name;
 
         });
 
 
-    const list =
-        document.getElementById("trainList");
+    if (existing) {
+
+        existing.quantity++;
+
+    } else {
+
+        cart.push({
+
+            name: name,
+
+            price: price,
+
+            quantity: 1
+
+        });
+
+    }
 
 
-    list.innerHTML = "";
+    updateCart();
+}
 
 
-    if (results.length === 0) {
+/* REMOVE FOOD */
 
-        list.innerHTML = `
+function removeFood(index) {
 
-            <div class="train-card">
+    cart[index].quantity--;
 
-                <div>
-                    <h3>No trains found 🚆</h3>
 
-                    <p>
-                        Try another route.
-                    </p>
-                </div>
+    if (cart[index].quantity <= 0) {
 
-            </div>
+        cart.splice(index, 1);
 
-        `;
+    }
 
-        go("trains");
+
+    updateCart();
+}
+
+
+/* UPDATE CART */
+
+function updateCart() {
+
+    const cartBox =
+        document.getElementById("cart");
+
+
+    const totalBox =
+        document.getElementById("total");
+
+
+    total = 0;
+
+
+    if (cart.length === 0) {
+
+        cartBox.innerHTML =
+            "No items added yet.";
+
+        totalBox.innerText =
+            "0";
 
         return;
     }
 
 
-    results.forEach(function(train, index) {
-
-        list.innerHTML += `
-
-            <div class="train-card">
-
-                <div>
-
-                    <div class="train-name">
-                        🚆 ${train.name}
-                    </div>
-
-                    <div>
-                        Train No:
-                        ${train.number}
-                    </div>
-
-                    <div class="train-time">
-                        Departure:
-                        ${train.time}
-                    </div>
-
-                </div>
+    cartBox.innerHTML = "";
 
 
-                <div>
+    cart.forEach(function(item, index) {
 
-                    <div>
-                        ${train.from}
-                        →
-                        ${train.to}
-                    </div>
+        let itemTotal =
+            item.price *
+            item.quantity;
 
-                    <div class="price">
-                        ₹${train.price}
-                    </div>
+
+        total += itemTotal;
+
+
+        cartBox.innerHTML += `
+
+            <div class="cart-item">
+
+                <span>
+
+                    ${item.name}
+                    × ${item.quantity}
+
+                </span>
+
+                <span>
+
+                    ₹${itemTotal}
 
                     <button
-                        onclick="chooseTrain(${index})">
+                        onclick="removeFood(${index})">
 
-                        Select
+                        −
 
                     </button>
 
-                </div>
+                </span>
 
             </div>
 
@@ -253,69 +149,65 @@ function searchTrain() {
     });
 
 
-    go("trains");
+    totalBox.innerText =
+        total;
 }
 
 
-/* SELECT TRAIN */
+/* CART NEXT */
 
-function chooseTrain(index) {
+function cartNext() {
 
-    const from =
-        document.getElementById("from").value;
+    if (cart.length === 0) {
 
-    const to =
-        document.getElementById("to").value;
+        alert(
+            "Please add at least one food item."
+        );
 
-
-    const results =
-        trainData.filter(function(train) {
-
-            return (
-                train.from === from &&
-                train.to === to
-            );
-
-        });
+        return;
+    }
 
 
-    selectedTrain =
-        results[index];
-
-
-    go("passenger");
+    go("customer");
 }
 
 
-/* PASSENGER */
+/* CUSTOMER */
 
-function passengerDetails() {
+function customerNext() {
 
     const name =
         document
-        .getElementById("fullName")
+        .getElementById("name")
         .value.trim();
 
-    const email =
-        document
-        .getElementById("email")
-        .value.trim();
 
     const phone =
         document
         .getElementById("phone")
         .value.trim();
 
-    const age =
+
+    const email =
         document
-        .getElementById("age")
-        .value;
+        .getElementById("email")
+        .value.trim();
 
 
-    if (!name || !email || !phone || !age) {
+    if (!name || !phone || !email) {
 
         alert(
-            "Please fill all passenger details."
+            "Please fill all customer details."
+        );
+
+        return;
+    }
+
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+
+        alert(
+            "Please enter a valid 10-digit phone number."
         );
 
         return;
@@ -332,372 +224,118 @@ function passengerDetails() {
     }
 
 
-    if (!/^[0-9]{10}$/.test(phone)) {
-
-        alert(
-            "Enter a valid 10-digit phone number."
-        );
-
-        return;
-    }
-
-
-    createSeats();
-
-    go("berth");
+    go("delivery");
 }
 
 
-/* CREATE SEATS */
+/* DELIVERY */
 
-function createSeats() {
+function deliveryNext() {
+
+    const house =
+        document
+        .getElementById("house")
+        .value.trim();
+
 
     const area =
-        document.getElementById("seatArea");
+        document
+        .getElementById("area")
+        .value.trim();
 
 
-    area.innerHTML = "";
+    const city =
+        document
+        .getElementById("city")
+        .value.trim();
 
 
-    const booked = [
-        3,
-        8,
-        14,
-        19,
-        25
-    ];
+    const pincode =
+        document
+        .getElementById("pincode")
+        .value.trim();
 
 
-    for (
-        let i = 1; i <= 30; i++
+    if (
+        !house ||
+        !area ||
+        !city ||
+        !pincode
     ) {
 
-        const seat =
-            document.createElement("div");
+        alert(
+            "Please fill all delivery details."
+        );
 
-
-        seat.className = "seat";
-
-        seat.innerText =
-            "B-" + i;
-
-
-        if (booked.includes(i)) {
-
-            seat.classList.add("booked");
-
-        } else {
-
-            seat.onclick =
-                function() {
-
-                    selectSeat(
-                        i,
-                        seat
-                    );
-
-                };
-
-        }
-
-
-        area.appendChild(seat);
-
-    }
-
-}
-
-
-/* SELECT SEAT */
-
-function selectSeat(
-    number,
-    element
-) {
-
-    document
-        .querySelectorAll(".seat")
-        .forEach(function(seat) {
-
-            seat.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-    element.classList.add("selected");
-
-
-    selectedSeat = number;
-
-
-    document
-        .getElementById("selectedSeat")
-        .innerText =
-        "B-" + number;
-
-
-    calculateFare();
-}
-
-
-/* FARE */
-
-function calculateFare() {
-
-    if (!selectedTrain) {
         return;
     }
 
 
-    const passengers =
-        Number(
-            document
-            .getElementById("passengers")
-            .value
-        );
-
-
-    totalFare =
-        selectedTrain.price *
-        passengers;
-
-
-    document
-        .getElementById("fare")
-        .innerText =
-        totalFare;
-}
-
-
-/* BERTH NEXT */
-
-function berthNext() {
-
-    if (!selectedSeat) {
+    if (!/^[0-9]{6}$/.test(pincode)) {
 
         alert(
-            "Please select a berth."
+            "Please enter a valid 6-digit pincode."
         );
 
         return;
     }
 
 
-    calculateFare();
-
-    go("face");
-}
-
-
-/* CAMERA */
-
-async function startCamera() {
-
-    try {
-
-        cameraStream =
-            await navigator
-            .mediaDevices
-            .getUserMedia({
-                video: true,
-                audio: false
-            });
-
-
-        const video =
-            document.getElementById("video");
-
-
-        video.srcObject =
-            cameraStream;
-
-
-        document
-            .getElementById("cameraMessage")
-            .innerText =
-            "✓ Camera started. Position your face.";
-
-
-    } catch (error) {
-
-        document
-            .getElementById("cameraMessage")
-            .innerText =
-            "Camera permission denied or unavailable.";
-
-    }
-
-}
-
-
-/* CAPTURE */
-
-function capturePhoto() {
-
-    if (!cameraStream) {
-
-        alert(
-            "Start the camera first."
-        );
-
-        return;
-    }
-
-
-    const video =
-        document.getElementById("video");
-
-    const canvas =
-        document.getElementById("canvas");
-
-    const image =
-        document.getElementById("captured");
-
-
-    canvas.width =
-        video.videoWidth;
-
-    canvas.height =
-        video.videoHeight;
-
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    ctx.drawImage(
-        video,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    image.src =
-        canvas.toDataURL("image/png");
-
-
-    image.style.display =
-        "block";
-
-
-    document
-        .getElementById("cameraMessage")
-        .innerText =
-        "✓ Photo captured. Click Verify.";
-
-}
-
-
-/* VERIFY */
-
-function verifyPhoto() {
-
-    const image =
-        document.getElementById("captured");
-
-
-    if (image.style.display === "none") {
-
-        alert(
-            "Capture a photo first."
-        );
-
-        return;
-    }
-
-
-    document
-        .getElementById("cameraMessage")
-        .innerText =
-        "✓ Face verification completed.";
-
-
-    document
-        .getElementById("faceContinue")
-        .classList
-        .remove("hidden");
-
-}
-
-
-/* NEXT */
-
-function faceNext() {
-
-    stopCamera();
-
-    updatePayment();
+    createPaymentSummary();
 
     go("payment");
 }
 
 
-/* STOP CAMERA */
-
-function stopCamera() {
-
-    if (cameraStream) {
-
-        cameraStream
-            .getTracks()
-            .forEach(function(track) {
-
-                track.stop();
-
-            });
-
-        cameraStream = null;
-    }
-
-}
-
-
 /* PAYMENT SUMMARY */
 
-function updatePayment() {
+function createPaymentSummary() {
 
-    document
-        .getElementById("payTrain")
-        .innerText =
-        selectedTrain.name;
-
-
-    document
-        .getElementById("payRoute")
-        .innerText =
-        selectedTrain.from +
-        " → " +
-        selectedTrain.to;
-
-
-    document
-        .getElementById("payPassenger")
-        .innerText =
+    const box =
         document
-        .getElementById("fullName")
-        .value;
+        .getElementById("paymentItems");
+
+
+    box.innerHTML = "";
+
+
+    cart.forEach(function(item) {
+
+        let amount =
+            item.price *
+            item.quantity;
+
+
+        box.innerHTML += `
+
+            <div class="summary-item">
+
+                <span>
+                    ${item.name}
+                    × ${item.quantity}
+                </span>
+
+                <b>
+                    ₹${amount}
+                </b>
+
+            </div>
+
+        `;
+
+    });
 
 
     document
-        .getElementById("paySeat")
+        .getElementById("paymentTotal")
         .innerText =
-        "B-" + selectedSeat;
-
-
-    document
-        .getElementById("payFare")
-        .innerText =
-        totalFare;
+        total;
 }
 
 
-/* PAYMENT */
+/* PLACE ORDER */
 
-function payNow() {
+function placeOrder() {
 
     const method =
         document
@@ -715,18 +353,18 @@ function payNow() {
     }
 
 
-    generateTicket();
+    generateOrder();
 
-    go("ticket");
+    go("confirmation");
 }
 
 
-/* TICKET */
+/* GENERATE ORDER */
 
-function generateTicket() {
+function generateOrder() {
 
-    const pnr =
-        "RB" +
+    const orderId =
+        "FE" +
         Math.floor(
             100000 +
             Math.random() * 900000
@@ -734,53 +372,94 @@ function generateTicket() {
 
 
     document
-        .getElementById("pnr")
+        .getElementById("orderId")
         .innerText =
-        pnr;
+        orderId;
 
 
     document
-        .getElementById("ticketFrom")
-        .innerText =
-        selectedTrain.from;
-
-
-    document
-        .getElementById("ticketTo")
-        .innerText =
-        selectedTrain.to;
-
-
-    document
-        .getElementById("ticketPassenger")
+        .getElementById("orderName")
         .innerText =
         document
-        .getElementById("fullName")
+        .getElementById("name")
         .value;
 
 
     document
-        .getElementById("ticketDate")
+        .getElementById("orderPhone")
         .innerText =
         document
-        .getElementById("journeyDate")
+        .getElementById("phone")
+        .value;
+
+
+    let itemText = "";
+
+
+    cart.forEach(function(item, index) {
+
+        if (index > 0) {
+
+            itemText += ", ";
+
+        }
+
+
+        itemText +=
+            item.name +
+            " × " +
+            item.quantity;
+
+    });
+
+
+    document
+        .getElementById("orderItems")
+        .innerText =
+        itemText;
+
+
+    const address =
+
+        document
+        .getElementById("house")
+        .value +
+
+        ", " +
+
+        document
+        .getElementById("area")
+        .value +
+
+        ", " +
+
+        document
+        .getElementById("city")
+        .value +
+
+        " - " +
+
+        document
+        .getElementById("pincode")
         .value;
 
 
     document
-        .getElementById("ticketTrain")
+        .getElementById("orderAddress")
         .innerText =
-        selectedTrain.name;
+        address;
 
 
     document
-        .getElementById("ticketSeat")
+        .getElementById("orderPayment")
         .innerText =
-        "B-" + selectedSeat;
+        document
+        .getElementById("paymentMethod")
+        .value;
 
 
     document
-        .getElementById("ticketFare")
+        .getElementById("orderTotal")
         .innerText =
-        totalFare;
+        total;
 }
