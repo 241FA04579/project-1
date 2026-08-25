@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailBook - Train Ticket Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">🚆 RailBook</div>
+        <div class="subtitle">Smart Train Ticket Booking</div>
+    </header>
+
+    <main>
+
+        <!-- HOME -->
+        <section class="screen active" id="home">
+
+            <div class="welcome">
+
+                <div class="big-train">🚆</div>
+
+                <h1>RailBook</h1>
+
+                <p>
+                    Book your train tickets quickly and easily.
+                </p>
+
+                <button onclick="go('search')">
+                Book a Train →
+            </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH -->
+        <section class="screen" id="search">
+
+            <div class="box">
+
+                <span class="step">STEP 1</span>
+
+                <h2>🔎 Search Trains</h2>
+
+                <div class="form">
+
+                    <div>
+                        <label>From</label>
+
+                        <select id="from">
+                        <option value="">Select Station</option>
+                        <option>Hyderabad</option>
+                        <option>Chennai</option>
+                        <option>Delhi</option>
+                        <option>Mumbai</option>
+                        <option>Bangalore</option>
+                        <option>Pune</option>
+                    </select>
+                    </div>
+
+
+                    <div>
+                        <label>To</label>
+
+                        <select id="to">
+                        <option value="">Select Station</option>
+                        <option>Hyderabad</option>
+                        <option>Chennai</option>
+                        <option>Delhi</option>
+                        <option>Mumbai</option>
+                        <option>Bangalore</option>
+                        <option>Pune</option>
+                    </select>
+                    </div>
+
+
+                    <div>
+                        <label>Journey Date</label>
+
+                        <input type="date" id="journeyDate">
+                    </div>
+
+
+                    <div>
+                        <label>Passengers</label>
+
+                        <select id="passengers">
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                    </select>
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button class="gray" onclick="go('home')">
+                    ← Back
+                </button>
+
+                    <button onclick="searchTrain()">
+                    Search Trains →
+                </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRAIN LIST -->
+        <section class="screen" id="trains">
+
+            <div class="box">
+
+                <span class="step">STEP 2</span>
+
+                <h2>🚆 Available Trains</h2>
+
+                <div id="trainList"></div>
+
+                <button class="gray" onclick="go('search')">
+                ← Back
+            </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- PASSENGER -->
+        <section class="screen" id="passenger">
+
+            <div class="box">
+
+                <span class="step">STEP 3</span>
+
+                <h2>👤 Passenger Details</h2>
+
+                <div class="form">
+
+                    <div>
+                        <label>Full Name</label>
+                        <input id="fullName" type="text" placeholder="Enter name">
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input id="email" type="email" placeholder="Enter email">
+                    </div>
+
+                    <div>
+                        <label>Phone</label>
+                        <input id="phone" type="tel" placeholder="10 digit number">
+                    </div>
+
+                    <div>
+                        <label>Age</label>
+                        <input id="age" type="number" placeholder="Enter age">
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button class="gray" onclick="go('trains')">
+                    ← Back
+                </button>
+
+                    <button onclick="passengerDetails()">
+                    Continue →
+                </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BERTH -->
+        <section class="screen" id="berth">
+
+            <div class="box">
+
+                <span class="step">STEP 4</span>
+
+                <h2>💺 Select Berth</h2>
+
+                <p>Select your preferred berth.</p>
+
+                <div class="legend">
+                    <span>🟩 Available</span>
+                    <span>🟥 Selected</span>
+                    <span>⬜ Booked</span>
+                </div>
+
+                <div class="seat-area" id="seatArea">
+                </div>
+
+                <h3>
+                    Selected:
+                    <span id="selectedSeat">None</span>
+                </h3>
+
+                <h2>
+                    Fare: ₹<span id="fare">0</span>
+                </h2>
+
+
+                <div class="actions">
+
+                    <button class="gray" onclick="go('passenger')">
+                    ← Back
+                </button>
+
+                    <button onclick="berthNext()">
+                    Continue →
+                </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CAMERA -->
+        <section class="screen" id="face">
+
+            <div class="box center">
+
+                <span class="step">STEP 5</span>
+
+                <h2>📷 Face Verification</h2>
+
+                <p>
+                    Use the camera to capture a passenger photo.
+                </p>
+
+                <video id="video" autoplay playsinline>
+            </video>
+
+                <canvas id="canvas"></canvas>
+
+                <img id="captured" alt="Captured photo">
+
+                <div class="camera-buttons">
+
+                    <button onclick="startCamera()">
+                    Start Camera
+                </button>
+
+                    <button onclick="capturePhoto()">
+                    Capture
+                </button>
+
+                    <button onclick="verifyPhoto()">
+                    Verify
+                </button>
+
+                </div>
+
+                <p id="cameraMessage">
+                    Camera not started.
+                </p>
+
+
+                <div class="actions">
+
+                    <button class="gray" onclick="stopCamera();go('berth')">
+                    ← Back
+                </button>
+
+                    <button id="faceContinue" class="hidden" onclick="faceNext()">
+                    Continue →
+                </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAYMENT -->
+        <section class="screen" id="payment">
+
+            <div class="box">
+
+                <span class="step">STEP 6</span>
+
+                <h2>💳 Payment</h2>
+
+                <div class="summary">
+
+                    <p>
+                        Train:
+                        <b id="payTrain"></b>
+                    </p>
+
+                    <p>
+                        Route:
+                        <b id="payRoute"></b>
+                    </p>
+
+                    <p>
+                        Passenger:
+                        <b id="payPassenger"></b>
+                    </p>
+
+                    <p>
+                        Berth:
+                        <b id="paySeat"></b>
+                    </p>
+
+                    <hr>
+
+                    <h2>
+                        Total: ₹<span id="payFare"></span>
+                    </h2>
+
+                </div>
+
+
+                <label>Payment Method</label>
+
+                <select id="paymentMethod">
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option>UPI</option>
+                <option>Debit Card</option>
+                <option>Credit Card</option>
+                <option>Net Banking</option>
+
+            </select>
+
+
+                <div class="actions">
+
+                    <button class="gray" onclick="go('face')">
+                    ← Back
+                </button>
+
+                    <button onclick="payNow()">
+                    Pay Now →
+                </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TICKET -->
+        <section class="screen" id="ticket">
+
+            <div class="box ticket-page">
+
+                <div class="success">✓</div>
+
+                <h2>Booking Confirmed!</h2>
+
+                <p>Your train ticket has been booked successfully.</p>
+
+
+                <div class="ticket-card">
+
+                    <div class="ticket-header">
+
+                        <div>
+                            <h2>🚆 RailBook</h2>
+                            <p>TRAIN E-TICKET</p>
+                        </div>
+
+                        <div>
+                            <small>PNR</small>
+                            <h3 id="pnr"></h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="route">
+
+                        <div>
+                            <small>FROM</small>
+                            <h2 id="ticketFrom"></h2>
+                        </div>
+
+                        <div class="train-icon">
+                            🚆
+                        </div>
+
+                        <div>
+                            <small>TO</small>
+                            <h2 id="ticketTo"></h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="ticket-details">
+
+                        <div>
+                            <small>PASSENGER</small>
+                            <b id="ticketPassenger"></b>
+                        </div>
+
+                        <div>
+                            <small>DATE</small>
+                            <b id="ticketDate"></b>
+                        </div>
+
+                        <div>
+                            <small>TRAIN</small>
+                            <b id="ticketTrain"></b>
+                        </div>
+
+                        <div>
+                            <small>BERTH</small>
+                            <b id="ticketSeat"></b>
+                        </div>
+
+                        <div>
+                            <small>CLASS</small>
+                            <b>AC COACH</b>
+                        </div>
+
+                        <div>
+                            <small>AMOUNT</small>
+                            <b>₹<span id="ticketFare"></span></b>
+                        </div>
+
+                    </div>
+
+
+                    <div class="ticket-footer">
+                        Have a safe journey! 🚆
+                    </div>
+
+                </div>
+
+
+                <button onclick="window.print()">
+                🖨 Print Ticket
+            </button>
+
+                <button class="gray" onclick="location.reload()">
+                Book Another Train
+            </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        © 2026 RailBook | Smart Train Ticket Booking
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
